@@ -1,6 +1,6 @@
 # Terms Module - Django API
 
-This document outlines the creation of a Terms module with database integration for the Django property management system.
+This document outlines the creation of a Terms module with database integration for the Django demo.
 
 ## Files Created
 
