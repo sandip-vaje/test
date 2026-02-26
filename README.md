@@ -1,6 +1,6 @@
 # Terms Module - Django API
 
-This document outlines the creation of a Terms module with database integration for the Django demo.
+This document outlines the creation of a Terms module with database integration for the Django property management system.
 
 ## Files Created
 
@@ -59,7 +59,7 @@ import json
 
 
 @csrf_exempt
-def get_terms(request):
+def terms_api(request):
     if request.method == 'GET':
         terms = Terms.objects.all()
         content = [{
@@ -74,11 +74,8 @@ def get_terms(request):
             "status": 200
         }
         return JsonResponse(response_data)
-
-
-@csrf_exempt
-def insert_terms(request):
-    if request.method == 'POST':
+    
+    elif request.method == 'POST':
         try:
             data = json.loads(request.body)
             
@@ -113,8 +110,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.get_terms, name='get_terms'),
-    path('insert/', views.insert_terms, name='insert_terms'),
+    path('', views.terms_api, name='terms_api'),
 ]
 ```
 
@@ -153,8 +149,10 @@ pause
 
 ## API Endpoints
 
-### GET `/terms/`
-Returns all terms from database
+### GET/POST `/terms/`
+Single endpoint for both operations:
+
+**GET** - Returns all terms from database
 ```json
 {
     "content": [
@@ -169,8 +167,7 @@ Returns all terms from database
 }
 ```
 
-### POST `/terms/insert/`
-Inserts new term into database
+**POST** - Inserts new term into database
 **Request:**
 ```json
 {
